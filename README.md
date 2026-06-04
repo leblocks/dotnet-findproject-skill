@@ -25,9 +25,7 @@ finding-owning-csproj/
   `description`) is what the agent uses to discover and trigger the skill; the
   body gives quick-start usage and the most important rules.
 - **[findproject.md](findproject.md)** — the comprehensive reference: every
-  invocation mode, selection rule, and edge case, with worked examples verified
-  against the [`powerbi-powershell`](https://github.com/microsoft/powerbi-powershell)
-  repository and the tool's source.
+  invocation mode, selection rule, and edge case
 
 ## Prerequisite
 
@@ -49,16 +47,9 @@ findproject src/Common/Commands.Common/PowerBICmdlet.cs
 
 ## Installing the skill
 
-Place this folder where your agent loads skills from. For example, with the
-Claude Skills directory layout, copy the folder so that `SKILL.md` sits at the
-skill root:
-
-```text
-<skills-dir>/finding-owning-csproj/SKILL.md
+```shell
+npx skills add leblocks/dotnet-findproject-skill
 ```
-
-The agent reads the `description` in `SKILL.md` to decide when to activate the
-skill, then loads `findproject.md` only when fuller detail is required.
 
 ## Credits
 
