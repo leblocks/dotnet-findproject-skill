@@ -1,7 +1,7 @@
-# finding-owning-csproj — Agent Skill
+# finding-owning-csproj
+[![skills.sh](https://skills.sh/b/owner/repo)](https://skills.sh/leblocks/dotnet-findproject-skill)
 
-An [Agent Skill](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview)
-that teaches an agent to resolve a C# source file (`.cs`) to the `.csproj`
+An agnet skill that teaches an agent to resolve a C# source file (`.cs`) to the `.csproj`
 project that owns it, using the [`findproject`](https://www.nuget.org/packages/findproject)
 .NET CLI tool.
 

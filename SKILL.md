@@ -9,9 +9,6 @@ description: Finds the .csproj project that owns a given C# (.cs) source file us
 prints the absolute path of the **nearest** `.csproj` that owns it by walking up
 the directory tree.
 
-For every mode, edge case, and selection rule, read
-[references/findproject.md](references/findproject.md).
-
 ## When to use
 
 Use `findproject` whenever you need to resolve the `.csproj` that owns a `.cs`
@@ -54,13 +51,6 @@ set "proj="
 for /f "delims=" %%i in ('findproject path\to\File.cs') do set "proj=%%i"
 if not defined proj echo No project found
 if defined proj echo Owns: %proj%
-```
-
-## Build or test the owning project
-
-```bash
-proj=$(findproject src/Common/Common.Api/ActivityEvent/ActivityEventResponse.cs)
-[ -n "$proj" ] && dotnet build "$proj"
 ```
 
 ## Invocation modes
