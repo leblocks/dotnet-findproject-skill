@@ -1,6 +1,6 @@
 ---
 name: finding-owning-csproj
-description: Finds the .csproj project that owns a given C# (.cs) source file using the findproject dotnet CLI tool. Use when locating, building, or testing the project that contains a specific .cs file, when resolving a file to its nearest project, or when the user mentions findproject, csproj lookup, or a file's owning project.
+description: Finds the .csproj project that owns a given C# (.cs) source file using the findproject dotnet CLI tool. Use when locating, building, or testing the project that contains a specific .cs file, when resolving a file to its nearest project, or when the user mentions findproject, csproj lookup, or a file's owning project. Don't use it for .vbproj or .fsproj projects, for non-.NET languages, or for resolving a project to its solution (.sln).
 ---
 
 # Finding the owning .csproj for a C# file
@@ -10,7 +10,7 @@ prints the absolute path of the nearest `.csproj` that owns it by walking **up**
 the directory tree.
 
 For the full behavior reference (every mode, edge case, and selection rule), see
-[findproject.md](findproject.md).
+[references/findproject.md](references/findproject.md).
 
 ## When to use
 
@@ -112,11 +112,5 @@ if defined proj dotnet build "%proj%"
 - Only `.csproj` is matched — not `.vbproj` or `.fsproj`.
 - No output means "not found" (bad/missing path, no project above, or ambiguity).
 
-See [findproject.md](findproject.md) for worked examples and every edge case.
+See [references/findproject.md](references/findproject.md) for worked examples and every edge case.
 
-## Credits
-
-`findproject` is authored by Kirill Osenkov ([@KirillOsenkov](https://github.com/KirillOsenkov))
-as part of CodeCleanupTools.
-Package: <https://www.nuget.org/packages/findproject> ·
-Source: <https://github.com/KirillOsenkov/CodeCleanupTools/tree/main/FindProject>

@@ -16,15 +16,16 @@ build, or test the project that contains a given file.
 
 ```text
 finding-owning-csproj/
-├── SKILL.md        # Entry point: metadata + concise instructions (loaded when triggered)
-├── findproject.md  # Full behavior reference (loaded as needed)
-└── README.md       # This file (human-facing overview)
+├── SKILL.md                   # Entry point: metadata + concise instructions (loaded when triggered)
+├── references/
+│   └── findproject.md         # Full behavior reference (loaded as needed)
+└── README.md                  # This file (human-facing overview)
 ```
 
 - **[SKILL.md](SKILL.md)** — the skill itself. Its YAML frontmatter (`name`,
   `description`) is what the agent uses to discover and trigger the skill; the
   body gives quick-start usage and the most important rules.
-- **[findproject.md](findproject.md)** — the comprehensive reference: every
+- **[references/findproject.md](references/findproject.md)** — the comprehensive reference: every
   invocation mode, selection rule, and edge case
 
 ## Prerequisite

@@ -10,7 +10,7 @@ the [`powerbi-powershell`](https://github.com/microsoft/powerbi-powershell)
 repository, cross-checked against the tool's source.
 
 > This is the full reference for the **finding-owning-csproj** skill. For the
-> concise entry point, see [SKILL.md](SKILL.md).
+> concise entry point, see [SKILL.md](../SKILL.md).
 
 ## Contents
 
