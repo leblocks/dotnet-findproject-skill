@@ -361,14 +361,12 @@ all exit `0` and print nothing. There is no built-in usage banner.
 - **Relative paths resolve against the current directory**, so run it from a
   stable location (e.g. the repo root) or pass absolute paths in scripts.
 
+- **cmd.exe capture caveats.** In a batch file, capture output with
+  `for /f "delims=" %%i in ('findproject path\to\File.cs') do set "proj=%%i"`;
+  at the interactive `cmd` prompt use a single `%i` instead of `%%i`. Prefer two
+  separate `if defined` / `if not defined` lines over `if (...) else (...)` so the
+  example stays robust when the resolved path contains parentheses, e.g.
+  `...\Foo (x86)\...`.
+
 ---
-
-## Source & credits
-
-`findproject` is authored and maintained by **Kirill Osenkov**
-([@KirillOsenkov](https://github.com/KirillOsenkov)) as part of the
-**CodeCleanupTools** repository. Full credit for the tool belongs to the author.
-
-- **NuGet package:** <https://www.nuget.org/packages/findproject>
-- **Source code:** <https://github.com/KirillOsenkov/CodeCleanupTools/tree/main/FindProject>
 

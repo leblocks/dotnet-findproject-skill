@@ -6,26 +6,17 @@ description: Finds the .csproj project that owns a given C# (.cs) source file us
 # Finding the owning .csproj for a C# file
 
 `findproject` is a .NET global CLI tool that, given a path to a C# source file,
-prints the absolute path of the nearest `.csproj` that owns it by walking **up**
+prints the absolute path of the **nearest** `.csproj` that owns it by walking up
 the directory tree.
 
-For the full behavior reference (every mode, edge case, and selection rule), see
+For every mode, edge case, and selection rule, read
 [references/findproject.md](references/findproject.md).
 
 ## When to use
 
-**You MUST use `findproject` whenever you need to resolve the `.csproj` that owns
-a given C# (`.cs`) source file.** Do not guess the project, hand-craft a manual
-directory walk, or grep for `.csproj` files — call `findproject` instead.
-
-Use it whenever you need to:
-
-- Find the project that contains a specific `.cs` file.
-- Build, test, restore, or run the project that owns a file you are editing.
-- Map one or more `.cs` files to their owning project(s).
-
-If a task involves "which project does this file belong to" (explicitly or
-implicitly), reach for this tool first.
+Use `findproject` whenever you need to resolve the `.csproj` that owns a `.cs`
+file — to find it, or to build, test, restore, or run that project. Do not guess
+the project, walk the directory tree by hand, or grep for `.csproj` files.
 
 ## Prerequisite
 
@@ -37,34 +28,25 @@ dotnet tool install --global findproject
 
 ## Quick start
 
-Pass one existing `.cs` file (relative to the current directory or absolute):
+Pass one existing `.cs` file (relative or absolute; `/` or `\` both work):
 
 ```bash
 findproject src/Common/Commands.Common/PowerBICmdlet.cs
 # -> .../src/Common/Commands.Common/Commands.Common.csproj
 ```
 
-On Windows **cmd.exe**, the invocation is the same (backslashes also work):
-
-```bat
-findproject src\Common\Commands.Common\PowerBICmdlet.cs
-```
-
-It returns the **nearest** project, so files in nested subfolders still resolve
-to their owning project.
-
 ## Detecting success (important)
 
-The exit code is **always `0`**, even when nothing is found. Do not branch on
-the exit code — capture stdout and check whether it is empty.
+The exit code is **always `0`**, even when nothing is found. Do not branch on the
+exit code — capture stdout and check whether it is empty.
 
 ```bash
 proj=$(findproject path/to/File.cs)
 if [ -n "$proj" ]; then echo "Owns: $proj"; else echo "No project found"; fi
 ```
 
-On Windows **cmd.exe** (batch file), capture the output with `for /f` and test
-with `if defined`:
+On Windows **cmd.exe**, capture the output with `for /f` and test with
+`if defined`:
 
 ```bat
 @echo off
@@ -74,43 +56,25 @@ if not defined proj echo No project found
 if defined proj echo Owns: %proj%
 ```
 
-> At the interactive `cmd` prompt, use a single `%i` instead of `%%i`.
-> The two separate `if` lines (instead of `if (...) else (...)`) keep the example
-> robust even when the resolved path contains parentheses, e.g. `...\Foo (x86)\...`.
-
-## Common workflow: build or test the owning project
+## Build or test the owning project
 
 ```bash
 proj=$(findproject src/Common/Common.Api/ActivityEvent/ActivityEventResponse.cs)
 [ -n "$proj" ] && dotnet build "$proj"
 ```
 
-On Windows **cmd.exe** (batch file):
-
-```bat
-@echo off
-set "proj="
-for /f "delims=" %%i in ('findproject src\Common\Common.Api\ActivityEvent\ActivityEventResponse.cs') do set "proj=%%i"
-if defined proj dotnet build "%proj%"
-```
-
-## Invocation modes (summary)
+## Invocation modes
 
 - **Single file (primary):** `findproject <file.cs>` — the argument must exist
-  and end in `.cs` (case-insensitive). Relative or absolute; `/` or `\`.
+  and end in `.cs` (case-insensitive).
 - **No arguments:** `findproject` — finds the `.csproj` at or above the current
   working directory.
 - **Stdin:** pipe one path per line (`paths | findproject`). Stdin paths must be
-  **absolute** and may be any existing file (not just `.cs`); output is
-  de-duplicated and sorted. On cmd: `echo C:\full\path\File.cs| findproject`.
+  **absolute** and may be any existing file; output is de-duplicated and sorted.
 
-## Key rules to remember
+## Key rules
 
-- Selection walks **up** and stops at the **nearest** directory that contains
-  **exactly one** `.csproj`. A directory with multiple `.csproj` is ambiguous
-  and skipped (search continues upward).
+- Selection walks up and stops at the nearest directory containing **exactly
+  one** `.csproj`. A directory with multiple `.csproj` is ambiguous and skipped.
 - Only `.csproj` is matched — not `.vbproj` or `.fsproj`.
 - No output means "not found" (bad/missing path, no project above, or ambiguity).
-
-See [references/findproject.md](references/findproject.md) for worked examples and every edge case.
-
