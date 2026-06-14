@@ -1,4 +1,4 @@
-# finding-owning-csproj [![skills.sh](https://skills.sh/b/owner/repo)](https://skills.sh/leblocks/dotnet-findproject-skill)
+# finding-owning-csproj [![skills.sh](https://skills.sh/b/leblocks/dotnet-findproject-skill)](https://skills.sh/leblocks/dotnet-findproject-skill)
 
 An agnet skill that teaches an agent to resolve a C# source file (`.cs`) to the `.csproj`
 project that owns it, using the [`findproject`](https://www.nuget.org/packages/findproject)
